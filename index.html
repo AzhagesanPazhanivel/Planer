@@ -1043,7 +1043,40 @@
                 opacity: 0;
             }
         }
-        
+        /* Placement Section Container */
+#placement-section {
+  position: relative;
+  overflow: hidden; /* Keeps sparks inside the section */
+}
+
+/* Spark Elements */
+.spark {
+  position: absolute;
+  width: 6px;
+  height: 6px;
+  background: radial-gradient(circle, gold 0%, transparent 70%);
+  border-radius: 50%;
+  opacity: 0;
+  animation: sparkle 1.5s ease-out infinite;
+}
+
+/* Spark Animation Keyframes */
+@keyframes sparkle {
+  0% {
+    transform: scale(0.5);
+    opacity: 0.8;
+  }
+  50% {
+    transform: scale(1.2);
+    opacity: 1;
+    filter: brightness(1.5);
+  }
+  100% {
+    transform: scale(0.2);
+    opacity: 0;
+  }
+}
+
         /* Testimonials */
         .testimonials {
             background-color: var(--light);
@@ -2687,6 +2720,19 @@
         document.addEventListener('DOMContentLoaded', function() {
             createSparkAnimation();
         });
+document.addEventListener('DOMContentLoaded', () => {
+  const section = document.getElementById('placement-section');
+  const sparkCount = 25; // number of spark particles
+
+  for (let i = 0; i < sparkCount; i++) {
+    const spark = document.createElement('div');
+    spark.classList.add('spark');
+    spark.style.left = Math.random() * 100 + '%';
+    spark.style.top = Math.random() * 100 + '%';
+    spark.style.animationDelay = (Math.random() * 2) + 's';
+    section.appendChild(spark);
+  }
+});
     </script>
 </body>
 </html>
