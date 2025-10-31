@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -132,49 +131,6 @@
             max-width: 700px;
             margin: 20px auto 0;
         }
-  /* Spark Animation Styles */
-  .spark-container {
-    position: relative;
-  }
-  
-  .spark-animation {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    pointer-events: none;
-    z-index: 1;
-  }
-  
-  .spark {
-    position: absolute;
-    width: 4px;
-    height: 4px;
-    background-color: #ffd700;
-    border-radius: 50%;
-    box-shadow: 0 0 10px 2px #ffd700;
-    animation: sparkle 1.5s ease-out forwards;
-  }
-  
-  @keyframes sparkle {
-    0% {
-      transform: scale(0) rotate(0deg);
-      opacity: 1;
-    }
-    50% {
-      transform: scale(1) rotate(180deg);
-      opacity: 0.8;
-    }
-    100% {
-      transform: scale(0) rotate(360deg);
-      opacity: 0;
-    }
-  }
-  
-  .placement-section {
-    position: relative;
-  }
         
         /* Header Styles */
         header {
@@ -993,6 +949,8 @@
         /* Placement Section */
         .placement {
             background-color: white;
+            position: relative;
+            overflow: hidden;
         }
         
         .placement-content {
@@ -1044,6 +1002,46 @@
         .company-logo:hover {
             transform: translateY(-5px);
             box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        /* Spark Animation Styles */
+        .spark-container {
+            position: relative;
+        }
+        
+        .spark-animation {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+        
+        .spark {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background-color: #ffd700;
+            border-radius: 50%;
+            box-shadow: 0 0 10px 2px #ffd700;
+            animation: sparkle 1.5s ease-out forwards;
+        }
+        
+        @keyframes sparkle {
+            0% {
+                transform: scale(0) rotate(0deg);
+                opacity: 1;
+            }
+            50% {
+                transform: scale(1) rotate(180deg);
+                opacity: 0.8;
+            }
+            100% {
+                transform: scale(0) rotate(360deg);
+                opacity: 0;
+            }
         }
         
         /* Testimonials */
@@ -2357,25 +2355,28 @@
         </div>
     </section>
 
-    <!-- Placement Section -->
+    <!-- Placement Section with Spark Animation -->
     <section class="placement" id="placement">
-        <div class="container">
-            <div class="section-title">
-                <h2>100% Placement Assistance</h2>
-                <p>We have tie-ups with leading medical coding companies across Tamilnadu</p>
-            </div>
-            <div class="placement-content">
-                <p>Our students have been placed in top medical coding companies with excellent salary packages and growth opportunities.</p>
-            </div>
-            <div class="companies-grid">
-                <div class="company-logo">Omega</div>
-                <div class="company-logo">Clarus RCM</div>
-                <div class="company-logo">Vee Healthtek</div>
-                <div class="company-logo">Corro Health</div>
-                <div class="company-logo">Access HealthCare</div>
-                <div class="company-logo">Pro 1</div>
-                <div class="company-logo">R1 RCM</div>
-                <div class="company-logo">Cotiviti</div>
+        <div class="spark-container">
+            <div class="spark-animation" id="spark-animation"></div>
+            <div class="container">
+                <div class="section-title">
+                    <h2>100% Placement Assistance</h2>
+                    <p>We have tie-ups with leading medical coding companies across Tamilnadu</p>
+                </div>
+                <div class="placement-content">
+                    <p>Our students have been placed in top medical coding companies with excellent salary packages and growth opportunities.</p>
+                </div>
+                <div class="companies-grid">
+                    <div class="company-logo">Omega</div>
+                    <div class="company-logo">Clarus RCM</div>
+                    <div class="company-logo">Vee Healthtek</div>
+                    <div class="company-logo">Corro Health</div>
+                    <div class="company-logo">Access HealthCare</div>
+                    <div class="company-logo">Pro 1</div>
+                    <div class="company-logo">R1 RCM</div>
+                    <div class="company-logo">Cotiviti</div>
+                </div>
             </div>
         </div>
     </section>
@@ -2545,7 +2546,7 @@
         </div>
     </div>
 
-        <script>
+    <script>
         // Mobile Menu Toggle
         const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
         const navMenu = document.querySelector('.nav-menu');
@@ -2647,60 +2648,45 @@
                 demoModal.classList.remove('active');
             }
         });
-
-             // Function to create spark animation
-  function createSparkAnimation() {
-    const placementSection = document.querySelector('.placement');
-    if (!placementSection) return;
-    
-    // Add spark container
-    const sparkContainer = document.createElement('div');
-    sparkContainer.className = 'spark-container';
-    
-    // Wrap placement content
-    const placementContent = placementSection.innerHTML;
-    placementSection.innerHTML = '';
-    placementSection.appendChild(sparkContainer);
-    sparkContainer.innerHTML = placementContent;
-    
-    // Add animation container
-    const animationContainer = document.createElement('div');
-    animationContainer.className = 'spark-animation';
-    sparkContainer.appendChild(animationContainer);
-    
-    // Create sparks
-    const numSparks = 30;
-    for (let i = 0; i < numSparks; i++) {
-      setTimeout(() => {
-        const spark = document.createElement('div');
-        spark.className = 'spark';
         
-        // Random position
-        const posX = Math.random() * 100;
-        const posY = Math.random() * 100;
-        spark.style.left = `${posX}%`;
-        spark.style.top = `${posY}%`;
+        // Spark Animation Functionality
+        function createSparkAnimation() {
+            const sparkAnimation = document.getElementById('spark-animation');
+            if (!sparkAnimation) return;
+            
+            // Create sparks
+            const numSparks = 30;
+            for (let i = 0; i < numSparks; i++) {
+                setTimeout(() => {
+                    const spark = document.createElement('div');
+                    spark.className = 'spark';
+                    
+                    // Random position
+                    const posX = Math.random() * 100;
+                    const posY = Math.random() * 100;
+                    spark.style.left = `${posX}%`;
+                    spark.style.top = `${posY}%`;
+                    
+                    // Random delay
+                    const delay = Math.random() * 0.5;
+                    spark.style.animationDelay = `${delay}s`;
+                    
+                    sparkAnimation.appendChild(spark);
+                    
+                    // Remove spark after animation
+                    setTimeout(() => {
+                        if (spark.parentNode) {
+                            spark.parentNode.removeChild(spark);
+                        }
+                    }, 2000);
+                }, i * 100);
+            }
+        }
         
-        // Random delay
-        const delay = Math.random() * 0.5;
-        spark.style.animationDelay = `${delay}s`;
-        
-        animationContainer.appendChild(spark);
-        
-        // Remove spark after animation
-        setTimeout(() => {
-          if (spark.parentNode) {
-            spark.parentNode.removeChild(spark);
-          }
-        }, 2000);
-      }, i * 100);
-    }
-  }
-  
-  // Initialize spark animation when page loads
-  document.addEventListener('DOMContentLoaded', function() {
-    createSparkAnimation();
-  });
+        // Initialize spark animation when page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            createSparkAnimation();
+        });
     </script>
 </body>
 </html>
